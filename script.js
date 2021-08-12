@@ -1,17 +1,15 @@
 var appointmentArray = []
-var textArea = document.querySelector("#hourPLan")
+var textAreas = document.querySelectorAll(".hourPLan")
 var dateEl = document.querySelector("#currentDay")
 var day = moment().format("MMM Do YY");
+var hour = moment().hour()
 var schedule = localStorage.getItem("appointment")
 const saveBtn = document.querySelectorAll(".saveBtn")
+const rows = document.getElementsByClassName("container")
+let timeLabel = parseInt(moment().format('Hour'));
 dateEl.textContent = day
 console.log(saveBtn)
 
-//attempt1(Storage.setItem(textArea, "appointments");
-//attempt2 function populateStorage() {
-//    localStorage.setItem("appointments")
-//}
-//attempt3
 function renderTextArea() {
     for (var i = 0; i < textArea.length; i++)
         var textArea = schedule[i];
@@ -23,6 +21,18 @@ function init() {
         for (var i = 0; i < schedule.length; i++) {
             var time = schedule[i].time
             document.getElementById(time).value = schedule[i].title
+        }
+    }
+    for (var i = 0; i < textAreas.length; i++) {
+        var id = textAreas[i].getAttribute("id");
+        if (id < hour) {
+            textAreas[i].className += " past"
+        }
+        else if (id > hour) {
+            textAreas[i].className += " future"
+        }
+        else {
+            textAreas[i].className += " present"
         }
     }
 }
